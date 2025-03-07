@@ -8,7 +8,7 @@ export default function Login() {
             <View>
                 <Text>Login</Text>
                 <Link href="/signup">
-                    <Text>Go to Sign up</Text>
+                    <Text>Go to Sign up and test</Text>
                 </Link>
             </View>
         </SafeAreaView>
