@@ -3,9 +3,10 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { Client, Account, ID } from 'react-native-appwrite';
+import {  ID } from 'react-native-appwrite';
+import { useContext, useState, useEffect } from 'react';
+import { account, databases } from '@/lib/appwrite';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -13,10 +14,12 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // initialise AppWrite client
-  const client = new Client()
-    .setProject('67c0e32f002cdb733d1f')
-    .setPlatform('au.edu.nsw.ait.testapp');
+  //const [ auth, setAuth ] = useState<boolean>(null)
+ 
+  //sign up user
+  // const signUp = async ( email:string, password:string ) => {
+  //   await account.create(ID.unique(), email, password)
+  // }
 
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
@@ -37,7 +40,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{headerShown: false}} >
         <Stack.Screen name="index" />
-        <Stack.Screen name="signup" />
+        <Stack.Screen name="signup"/>
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
