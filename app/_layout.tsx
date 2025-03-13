@@ -4,23 +4,17 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import {  ID } from 'react-native-appwrite';
 import { useContext, useState, useEffect } from 'react';
-import { account, databases } from '@/lib/appwrite';
-
+import { useUser } from '@/contexts/UserContext';
+import { UserProvider } from '@/contexts/UserContext';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  //const [ auth, setAuth ] = useState<boolean>(null)
- 
-  //sign up user
-  // const signUp = async ( email:string, password:string ) => {
-  //   await account.create(ID.unique(), email, password)
-  // }
-
+  
+  const user = useUser()
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -38,10 +32,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{headerShown: false}} >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="signup"/>
-      </Stack>
+      <UserProvider value={user}>
+        <Stack screenOptions={{headerShown: false}} />
+      </UserProvider>
       <StatusBar style="auto" />
     </ThemeProvider>
   );
