@@ -26,6 +26,7 @@ export function UserProvider(props:any) {
     await account.create(ID.unique(), email, password);
     await login(email, password);
     // toast('Account created');
+    return( user )
   }
 
   async function init() {
