@@ -4,9 +4,8 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import {  ID } from 'react-native-appwrite';
-import { useContext, useState, useEffect } from 'react';
-import { account, databases } from '@/lib/appwrite';
+import { useEffect } from 'react';
+
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -38,10 +37,8 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{headerShown: false}} >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="signup"/>
-      </Stack>
+      <Stack screenOptions={{headerShown: false}} />
+        
       <StatusBar style="auto" />
     </ThemeProvider>
   );
