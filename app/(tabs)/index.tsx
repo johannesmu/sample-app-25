@@ -11,7 +11,7 @@ export default function HomeScreen() {
   }, [user])
   return (
     <View>
-      <Text>Hello</Text>
+      <Text>Home</Text>
     </View>
   );
 }

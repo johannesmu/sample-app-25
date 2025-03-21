@@ -61,12 +61,10 @@ export default function Signup() {
                 >
                     <Text style={styles.buttonText}>Sign up</Text>
                 </Pressable>
+                <Text>Already have an account?</Text>
                 <Link href="/">
-                    <Text>Go to Login</Text>
+                    <Text>Login to your account</Text>
                 </Link>
-                <Pressable onPress={ () => user.logout() }>
-                    <Text>Logout</Text>
-                </Pressable>
             </View>
         </SafeAreaView>
     )

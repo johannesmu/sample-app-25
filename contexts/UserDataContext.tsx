@@ -15,15 +15,16 @@ export function useData() {
 export function DataProvider(props:any) {
   const [ideas, setIdeas] = useState<any>([]);
 
-  async function add(idea:any) {
+  async function add(item:any) {
     const response = await databases.createDocument(
       USER_DATABASE_ID,
       USER_COLLECTION_ID,
       ID.unique(),
-      idea,
-      [Permission.write(Role.user(idea.userId))]
+      item,
+      [Permission.write(Role.user(item.userId))]
     );
-    setIdeas((ideas:any) => [response, ...ideas].slice(0, 10));
+    console.log( item )
+    setIdeas((items:any) => [response, ...items].slice(0, 10));
   }
 
   async function remove(id:string) {
