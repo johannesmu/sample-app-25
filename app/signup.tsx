@@ -3,13 +3,16 @@ import { useState, useEffect } from 'react'
 import { Link } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { FormLabel } from '@/components/FormLabel'
-
+import { useUser } from '@/contexts/UserContext'
+import { router } from 'expo-router'
 
 export default function Signup() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [validPassword, setValidPassword] = useState(false)
     const [validEmail, setValidEmail] = useState(false)
+
+    const user = useUser()
 
     useEffect(() => {
         // check password length
@@ -30,9 +33,9 @@ export default function Signup() {
         }
     }, [email])
 
-    const signUp = () => {
-        
-        
+    const signUp = async () => {
+       const signup = await user.register( email, password )
+       router.navigate('/(tabs)')
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -58,8 +61,9 @@ export default function Signup() {
                 >
                     <Text style={styles.buttonText}>Sign up</Text>
                 </Pressable>
+                <Text>Already have an account?</Text>
                 <Link href="/">
-                    <Text>Go to Login</Text>
+                    <Text>Login to your account</Text>
                 </Link>
             </View>
         </SafeAreaView>
