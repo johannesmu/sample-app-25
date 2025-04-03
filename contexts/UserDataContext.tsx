@@ -13,7 +13,8 @@ export function useData() {
 }
 
 export function DataProvider(props:any) {
-  const [ideas, setIdeas] = useState<any>([]);
+  //const [ideas, setIdeas] = useState<any>([]);
+  const [things, setThings ] = useState<any>([]);
 
   async function add(item:any) {
     const response = await databases.createDocument(
@@ -23,13 +24,12 @@ export function DataProvider(props:any) {
       item,
       [Permission.write(Role.user(item.userId))]
     );
-    console.log( item )
-    setIdeas((items:any) => [response, ...items].slice(0, 10));
+    setThings((items:any) => [response, ...items].slice(0, 10));
   }
 
   async function remove(id:string) {
     await databases.deleteDocument(USER_DATABASE_ID, USER_COLLECTION_ID, id);
-    setIdeas((ideas:any) => ideas.filter((idea:any) => idea.$id !== id));
+    setThings((things:any) => things.filter((thing:any) => thing.$id !== id));
     await init(); // Refetch ideas to ensure we have 10 items
   }
 
@@ -39,7 +39,7 @@ export function DataProvider(props:any) {
       USER_COLLECTION_ID,
       [Query.orderDesc("$createdAt"), Query.limit(10)]
     );
-    setIdeas(response.documents);
+    setThings(response.documents);
   }
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export function DataProvider(props:any) {
   }, []);
 
   return (
-    <DataContext.Provider value={{ current: ideas, add, remove }}>
+    <DataContext.Provider value={{ current: things, add, remove }}>
       {props.children}
     </DataContext.Provider>
   );
