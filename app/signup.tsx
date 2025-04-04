@@ -14,6 +14,12 @@ export default function Signup() {
 
     const user = useUser()
 
+    useEffect( () => {
+        if( user.current) {
+            router.navigate('/(tabs)')
+        }
+    }, [user])
+
     useEffect(() => {
         // check password length
         if (password.length >= 8) {
@@ -64,6 +70,9 @@ export default function Signup() {
                 <Text>Already have an account?</Text>
                 <Link href="/">
                     <Text>Login to your account</Text>
+                </Link>
+                <Link href="/(tabs)">
+                    <Text>Home</Text>
                 </Link>
             </View>
         </SafeAreaView>
