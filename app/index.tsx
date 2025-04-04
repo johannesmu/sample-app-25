@@ -14,6 +14,12 @@ export default function Login() {
 
     const user = useUser()
 
+    useEffect( () => {
+        if( user.current) {
+            router.navigate('/(tabs)')
+        }
+    }, [user])
+
     useEffect(() => {
         // check password length
         if (password.length >= 8) {

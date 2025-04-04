@@ -9,7 +9,6 @@ export default function ProfileScreen() {
   
   useEffect( () => {
     if( user.current ) {
-      console.log( user )
       setEmail( user.current.email )
     }
   }, [user])
@@ -19,7 +18,7 @@ export default function ProfileScreen() {
     router.navigate("/signup")
   }
   return (
-    <View>
+    <View style={ styles.container}>
       <Text>Profile</Text>
       <Text>{ email }</Text>
       <Pressable onPress={ () => signOut() }>
@@ -31,3 +30,10 @@ export default function ProfileScreen() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "hsl(64, 60%, 77%)",
+  },
+})
