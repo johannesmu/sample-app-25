@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useUser } from '@/contexts/UserContext';
 import { useData } from '@/contexts/UserDataContext';
 import { Item } from '@/interfaces/Item';
+import { router } from 'expo-router';
 
 export default function AddScreen() {
     const [name, setName] = useState<string>('')
@@ -22,6 +23,10 @@ export default function AddScreen() {
         const time: number = new Date().getTime()
         const obj: Item = { name: name, description: description, created: time }
         data.add({ userId: userId, name:name, description:description,created:time })
+    }
+    const logOut = () => {
+        user.logout()
+        router.navigate('/signup')
     }
 
     return (
@@ -46,6 +51,9 @@ export default function AddScreen() {
                     disabled={ (name.length > 3) ? false: true }
                 >
                     <Text style={styles.buttonText}>Add</Text>
+                </Pressable>
+                <Pressable onPress={ () => logOut() }>
+                    <Text>Logout</Text>
                 </Pressable>
             </View>
         </View>

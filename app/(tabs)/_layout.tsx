@@ -19,7 +19,7 @@ export default function TabLayout() {
   // const data = useData()
   return (
     // <UserProvider value={user}>
-      // <DataProvider value={data}>
+    //   <DataProvider value={data}>
         <Tabs
           screenOptions={{
             tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -56,7 +56,7 @@ export default function TabLayout() {
             }}
           />
         </Tabs>
-      // </DataProvider>
+    //   </DataProvider>
     // </UserProvider>
   );
 }
