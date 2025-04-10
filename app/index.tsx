@@ -11,6 +11,7 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [validPassword, setValidPassword] = useState(false)
     const [validEmail, setValidEmail] = useState(false)
+    const [ loading, setLoading ] = useState<any>(false)
 
     const user = useUser()
 
@@ -20,6 +21,13 @@ export default function Login() {
         }
     }, [user])
 
+    useEffect(() => {
+        if( !loading && user.current ) {
+            router.navigate('/(tabs)')
+            setLoading( true )
+        }
+    })
+   
     useEffect(() => {
         // check password length
         if (password.length >= 8) {
@@ -39,9 +47,9 @@ export default function Login() {
         }
     }, [email])
 
-    const signUp = async () => {
+    const signIn = async () => {
        const signup = await user.login( email, password )
-       router.navigate('/(tabs)')
+       router.navigate('/home')
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -63,7 +71,7 @@ export default function Login() {
                 <Pressable
                     style={(validPassword && validEmail) ? styles.button : styles.buttonDisabled}
                     disabled={(validPassword && validEmail) ? false : true}
-                    onPress={() => signUp()}
+                    onPress={() => signIn()}
                 >
                     <Text style={styles.buttonText}>Login</Text>
                 </Pressable>

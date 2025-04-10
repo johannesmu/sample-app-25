@@ -41,7 +41,7 @@ export default function Signup() {
 
     const signUp = async () => {
        const signup = await user.register( email, password )
-       router.navigate('/(tabs)')
+       router.navigate('/home')
     }
     return (
         <SafeAreaView style={styles.container}>

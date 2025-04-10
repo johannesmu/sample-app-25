@@ -9,6 +9,7 @@ import { useUser } from '@/contexts/UserContext';
 import { UserProvider } from '@/contexts/UserContext';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
