@@ -12,8 +12,13 @@ export function UserProvider(props:any) {
   const [user, setUser] = useState(null);
 
   async function login(email:string, password:string) {
+    try {
     const loggedIn:any = await account.createEmailPasswordSession(email, password);
     setUser(loggedIn);
+    }
+    catch( error:any ) {
+      console.log( error )
+    }
   }
 
   async function logout() {

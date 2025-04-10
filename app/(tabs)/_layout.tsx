@@ -8,18 +8,18 @@ import { Ionicons } from '@expo/vector-icons';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-// import { useUser } from '@/contexts/UserContext';
-// import { UserProvider } from '@/contexts/UserContext';
-// import { useData } from '@/contexts/UserDataContext';
-// import { DataProvider } from '@/contexts/UserDataContext';
+import { useUser } from '@/contexts/UserContext';
+import { UserProvider } from '@/contexts/UserContext';
+import { useData } from '@/contexts/UserDataContext';
+import { DataProvider } from '@/contexts/UserDataContext';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  // const user = useUser()
-  // const data = useData()
+  const user = useUser()
+  const data = useData()
   return (
-    // <UserProvider value={user}>
-    //   <DataProvider value={data}>
+    <UserProvider value={user}>
+      <DataProvider value={data}>
         <Tabs
           screenOptions={{
             tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
@@ -56,7 +56,7 @@ export default function TabLayout() {
             }}
           />
         </Tabs>
-    //   </DataProvider>
-    // </UserProvider>
+    </DataProvider>
+  </UserProvider>
   );
 }

@@ -11,23 +11,23 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [validPassword, setValidPassword] = useState(false)
     const [validEmail, setValidEmail] = useState(false)
-    const [ loading, setLoading ] = useState<any>(false)
+    const [loading, setLoading] = useState<any>(false)
 
     const user = useUser()
 
-    useEffect( () => {
-        if( user.current) {
+    useEffect(() => {
+        if (user.current) {
             router.navigate('/(tabs)')
         }
     }, [user])
 
     useEffect(() => {
-        if( !loading && user.current ) {
+        if (!loading && user.current) {
             router.navigate('/(tabs)')
-            setLoading( true )
+            setLoading(true)
         }
     })
-   
+
     useEffect(() => {
         // check password length
         if (password.length >= 8) {
@@ -48,8 +48,8 @@ export default function Login() {
     }, [email])
 
     const signIn = async () => {
-       const signup = await user.login( email, password )
-       router.navigate('/home')
+        const signin = await user.login(email, password)
+        router.navigate('/(tabs)')
     }
     return (
         <SafeAreaView style={styles.container}>
