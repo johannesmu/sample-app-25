@@ -13,6 +13,8 @@ export default function AddScreen() {
     const user = useUser()
     const data = useData()
 
+    console.log( data )
+
     useEffect( () => {
         if( user.current ) {
             setUserId( user.current.$id)
@@ -20,6 +22,7 @@ export default function AddScreen() {
     }, [user])
 
     const addItem = () => {
+        console.log(data)
         const time: number = new Date().getTime()
         const obj: Item = { name: name, description: description, created: time }
         data.add({ userId: userId, name:name, description:description,created:time })
