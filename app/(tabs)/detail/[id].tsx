@@ -4,6 +4,8 @@ import { useEffect, useContext, useState } from 'react'
 import { Item } from '@/interfaces/Item'
 import { useData } from '@/contexts/UserDataContext'
 import { Ionicons } from '@expo/vector-icons'
+import { router } from 'expo-router'
+import { DateDisplay } from '@/components/DateDisplay'
 
 export default function DetailScreen(props: any) {
     // default item
@@ -62,10 +64,17 @@ export default function DetailScreen(props: any) {
         }
     }, [name, description])
 
-    const updateData = () => {
+    // updating a document
+    const updateDocument = () => {
         data.updateDoc(id,{name: name, description: description, created: item.created })
-        .then( (res:any) => console.log(res))
+        router.navigate('/(tabs)')
     }
+
+    const deleteDocument = () => {
+        data.remove(id)
+    }
+
+
     // conditional view show spinner while loading is true
     if (loading) {
         return (
@@ -100,13 +109,16 @@ export default function DetailScreen(props: any) {
                     />
                     <Text style={styles.title}>Created</Text>
                     <Text style={styles.input}>
-                        {item.created}
+                        <DateDisplay date={item.created} />
                     </Text>
                     <Pressable 
                         style={ (edited) ? styles.button : styles.buttonDisabled }
-                        onPress={() => updateData()}
+                        onPress={() => updateDocument()}
                     >
                         <Text style={ styles.buttonText }>Update</Text>
+                    </Pressable>
+                    <Pressable onPress={()=> deleteDocument() }>
+                        <Text>Delete</Text>
                     </Pressable>
                 </View>
             </View>
