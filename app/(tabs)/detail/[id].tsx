@@ -9,7 +9,7 @@ import { DateDisplay } from '@/components/DateDisplay'
 
 export default function DetailScreen(props: any) {
     // default item
-    const defaultItem: Item = { name: "", description: "", created: 0 }
+    const defaultItem: Item = { name: "", description: "", created: 0, userId: "" }
     // state to store document
     const [item, setItem] = useState<Item>(defaultItem)
     // state for the inputs
@@ -72,6 +72,7 @@ export default function DetailScreen(props: any) {
 
     const deleteDocument = () => {
         data.remove(id)
+        router.navigate('/(tabs)')
     }
 
 
@@ -118,7 +119,7 @@ export default function DetailScreen(props: any) {
                         <Text style={ styles.buttonText }>Update</Text>
                     </Pressable>
                     <Pressable onPress={()=> deleteDocument() }>
-                        <Text>Delete</Text>
+                        <Text>Delete Document</Text>
                     </Pressable>
                 </View>
             </View>
