@@ -66,7 +66,7 @@ export default function DetailScreen(props: any) {
         data.updateDoc(id,{name: name, description: description, created: item.created })
         .then( (res:any) => console.log(res))
     }
-    // conditional view
+    // conditional view show spinner while loading is true
     if (loading) {
         return (
             <View style={styles.loading}>
