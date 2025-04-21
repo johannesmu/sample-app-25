@@ -21,12 +21,12 @@ export default function Login() {
         }
     }, [user])
 
-    useEffect(() => {
-        if (!loading && user.current) {
-            router.navigate('/(tabs)')
-            setLoading(true)
-        }
-    })
+    // useEffect(() => {
+    //     if (!loading && user.current) {
+    //         router.navigate('/(tabs)')
+    //         setLoading(true)
+    //     }
+    // })
 
     useEffect(() => {
         // check password length
