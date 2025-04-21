@@ -57,7 +57,7 @@ export function DataProvider(props:any) {
   }, []);
 
   return (
-    <DataContext.Provider value={{ current: things, add, remove }}>
+    <DataContext.Provider value={{ current: things, add, remove, getDoc }}>
       {props.children}
     </DataContext.Provider>
   );
