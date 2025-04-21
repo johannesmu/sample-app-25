@@ -15,7 +15,6 @@ export default function Home() {
   useEffect(
     () => {
       setItems( data.current )
-      console.log( data.current )
     },
     [ data.current ]
   )
