@@ -32,6 +32,16 @@ export function DataProvider(props:any) {
     setThings((things:any) => things.filter((thing:any) => thing.$id !== id));
     await init(); // Refetch ideas to ensure we have 10 items
   }
+  // function to retrieve a single document
+  async function getDoc( id:string ) {
+    const result = await databases.getDocument(
+      USER_DATABASE_ID,
+      USER_COLLECTION_ID,
+      id
+    )
+    return result
+  }
+
 
   async function init() {
     const response = await databases.listDocuments(
