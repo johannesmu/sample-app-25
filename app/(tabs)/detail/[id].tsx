@@ -3,13 +3,20 @@ import { useLocalSearchParams, Link, useNavigation } from 'expo-router'
 import { useEffect, useContext, useState } from 'react'
 import { Item } from '@/interfaces/Item'
 import { useData } from '@/contexts/UserDataContext'
+import { Ionicons } from '@expo/vector-icons'
 
 export default function DetailScreen(props: any) {
     // default item
     const defaultItem: Item = { name: "", description: "", created: 0 }
     // state to store document
     const [item, setItem] = useState<Item>(defaultItem)
+    // state for the inputs
+    const [name,setName] = useState<string>(defaultItem.name)
+    const [description,setDescription] = useState<string>(defaultItem.description)
+    // set to true to show spinner
     const [loading, setLoading] = useState<boolean>(true)
+
+
     // access data context via hook
     const data = useData()
     // access navigation object via hook
@@ -21,21 +28,28 @@ export default function DetailScreen(props: any) {
 
 
     const { id }: any = useLocalSearchParams()
-    const { name }: any = useLocalSearchParams()
+    
 
     useEffect(() => {
         // set item to default
         setItem(defaultItem)
+        // show the spinner while loading
         setLoading(true)
         // get document when id changes
         data.getDoc(id)
             .then((res: any) => {
                 setItem(res)
-                console.log(res)
+                setName( res.name )
+                setDescription( res.description )
                 setLoading(false)
             })
 
     }, [id])
+
+    const updateData = () => {
+    
+    }
+    // conditional view
     if (loading) {
         return (
             <View style={styles.loading}>
@@ -47,18 +61,33 @@ export default function DetailScreen(props: any) {
         return (
             <View style={styles.container}>
                 <View style={styles.itemHeader}>
-                    <Link href="/(tabs)" style={styles.backButton}>
+                    <Ionicons name="chevron-back" size={25} />
+                    <Link href="/(tabs)">
                         <Text>Go back to list</Text>
                     </Link>
-                    <Text style={styles.itemHeaderText}>{item.name}</Text>
                 </View>
                 <View style={styles.content}>
-                    <Text>Item Name</Text>
-                    <Text>{item.name}</Text>
-                    <Text>Item Description</Text>
-                    <Text>{item.description}</Text>
-                    <Text>Created</Text>
-                    <Text>{item.created}</Text>
+                    <Text style={ styles.title }>Name</Text>
+                    <TextInput 
+                    style={ styles.input } 
+                    value={name} 
+                    onChangeText={(val) => setName(val) }
+                    />
+                    <Text style={ styles.title }>Description</Text>
+                    <TextInput 
+                        value={description} 
+                        style={ styles.input }
+                        multiline={true}
+                        textAlignVertical='top'
+                        onChangeText={(val) => setDescription(val)}
+                    />
+                    <Text style={ styles.title }>Created</Text>
+                    <Text style={ styles.input }>
+                        { item.created }
+                    </Text>
+                    <Pressable onPress={ () => updateData() }>
+                        <Text>Update</Text>
+                    </Pressable>
                 </View>
             </View>
         )
@@ -73,6 +102,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
+        padding: 15,
     },
     container: {
         flex: 1,
@@ -81,24 +111,18 @@ const styles = StyleSheet.create({
     itemHeader: {
         backgroundColor: "#f1f7b7",
         padding: 10,
+        flexDirection: "row",
+        alignItems: "center",
     },
-    itemHeaderText: {
-        fontSize: 20,
-        fontWeight: "bold",
+    title: {
+        fontSize: 22,
+        marginBottom: 5,
     },
-    backButton: {
-        padding: 12,
+    input: {
+        fontSize: 16,
+        paddingVertical: 10,
+        paddingHorizontal: 5,
+        backgroundColor: "hsl(64, 60%, 95%)",
+        marginBottom: 10,
     },
-    editButton: {
-        padding: 10,
-        backgroundColor: "darkblue",
-        marginVertical: 20,
-    },
-    editButtonText: {
-        color: "white",
-        textAlign: "center"
-    },
-    editButtonDisabled: {
-        display: "none"
-    }
 })
