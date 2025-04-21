@@ -55,6 +55,12 @@ export default function TabLayout() {
               tabBarIcon: ({ color }) => <Ionicons size={28} name="person-circle" color={color} />,
             }}
           />
+          {/* this is to hide a route from the tabs */}
+          <Tabs.Screen
+            name="detail/[id]"
+            options={{href:null}}
+          />
+
         </Tabs>
     </DataProvider>
   </UserProvider>
