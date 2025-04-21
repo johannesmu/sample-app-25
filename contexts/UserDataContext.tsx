@@ -41,6 +41,24 @@ export function DataProvider(props:any) {
     )
     return result
   }
+  // function to update a document
+  async function updateDoc( id:string, data:any ) {
+    const update = await databases.updateDocument(
+      USER_DATABASE_ID,
+      USER_COLLECTION_ID,
+      id,
+      data
+    )
+    let items = [...things]
+    items.forEach( (item:any, index:number) => {
+      if( item.id == id ) {
+        items[index] = update
+      }
+    })
+    setThings( items )
+    await init()
+    //setThings((items:any) => [update, ...items].slice(0, 10))
+  }
 
 
   async function init() {
@@ -57,7 +75,7 @@ export function DataProvider(props:any) {
   }, []);
 
   return (
-    <DataContext.Provider value={{ current: things, add, remove, getDoc }}>
+    <DataContext.Provider value={{ current: things, add, remove, getDoc, updateDoc }}>
       {props.children}
     </DataContext.Provider>
   );
