@@ -13,8 +13,6 @@ export default function AddScreen() {
     const user = useUser()
     const data = useData()
 
-    console.log( data )
-
     useEffect( () => {
         if( user.current ) {
             setUserId( user.current.$id)
@@ -22,16 +20,12 @@ export default function AddScreen() {
     }, [user])
 
     const addItem = () => {
-        console.log(data)
         const time: number = new Date().getTime()
         const obj: Item = { name: name, description: description, created: time }
         data.add({ name:name, description:description,created:time })
+        router.navigate('/(tabs)')
     }
-    const logOut = () => {
-        user.logout()
-        router.navigate('/signup')
-    }
-
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Add a new item</Text>
@@ -54,9 +48,6 @@ export default function AddScreen() {
                     disabled={ (name.length > 3) ? false: true }
                 >
                     <Text style={styles.buttonText}>Add</Text>
-                </Pressable>
-                <Pressable onPress={ () => logOut() }>
-                    <Text>Logout</Text>
                 </Pressable>
             </View>
         </View>
