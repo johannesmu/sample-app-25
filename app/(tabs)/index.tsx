@@ -19,6 +19,14 @@ export default function Home() {
     [data.current]
   )
 
+  useEffect(
+    () => {
+      if(!user.current) {
+        router.navigate('/signup')
+      }
+    }, [user]
+  )
+
   const Separator = () => {
     return (
       <View style={styles.separator}></View>
