@@ -11,8 +11,10 @@ export default function DetailScreen(props: any) {
     // state to store document
     const [item, setItem] = useState<Item>(defaultItem)
     // state for the inputs
-    const [name,setName] = useState<string>(defaultItem.name)
-    const [description,setDescription] = useState<string>(defaultItem.description)
+    const [name, setName] = useState<string>(defaultItem.name)
+    const [description, setDescription] = useState<string>(defaultItem.description)
+    // state for the document if edited
+    const [edited,setEdited] = useState<boolean>( false )
     // set to true to show spinner
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -28,8 +30,8 @@ export default function DetailScreen(props: any) {
 
 
     const { id }: any = useLocalSearchParams()
-    
 
+    // handle document loading when id changes
     useEffect(() => {
         // set item to default
         setItem(defaultItem)
@@ -39,15 +41,30 @@ export default function DetailScreen(props: any) {
         data.getDoc(id)
             .then((res: any) => {
                 setItem(res)
-                setName( res.name )
-                setDescription( res.description )
+                setName(res.name)
+                setDescription(res.description)
                 setLoading(false)
             })
 
     }, [id])
 
+    // update item when name or description changes
+    useEffect(() => {
+        if (item.name != name || item.description != description) {
+            let itemCopy = item
+            itemCopy.name = name
+            itemCopy.description = description
+            setItem(itemCopy)
+            setEdited( true )
+        }
+        else {
+            setEdited( false )
+        }
+    }, [name, description])
+
     const updateData = () => {
-    
+        data.updateDoc(id,{name: name, description: description, created: item.created })
+        .then( (res:any) => console.log(res))
     }
     // conditional view
     if (loading) {
@@ -67,26 +84,29 @@ export default function DetailScreen(props: any) {
                     </Link>
                 </View>
                 <View style={styles.content}>
-                    <Text style={ styles.title }>Name</Text>
-                    <TextInput 
-                    style={ styles.input } 
-                    value={name} 
-                    onChangeText={(val) => setName(val) }
+                    <Text style={styles.title}>Name</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={name}
+                        onChangeText={(val) => setName(val)}
                     />
-                    <Text style={ styles.title }>Description</Text>
-                    <TextInput 
-                        value={description} 
-                        style={ styles.input }
+                    <Text style={styles.title}>Description</Text>
+                    <TextInput
+                        value={description}
+                        style={styles.input}
                         multiline={true}
                         textAlignVertical='top'
                         onChangeText={(val) => setDescription(val)}
                     />
-                    <Text style={ styles.title }>Created</Text>
-                    <Text style={ styles.input }>
-                        { item.created }
+                    <Text style={styles.title}>Created</Text>
+                    <Text style={styles.input}>
+                        {item.created}
                     </Text>
-                    <Pressable onPress={ () => updateData() }>
-                        <Text>Update</Text>
+                    <Pressable 
+                        style={ (edited) ? styles.button : styles.buttonDisabled }
+                        onPress={() => updateData()}
+                    >
+                        <Text style={ styles.buttonText }>Update</Text>
                     </Pressable>
                 </View>
             </View>
@@ -125,4 +145,18 @@ const styles = StyleSheet.create({
         backgroundColor: "hsl(64, 60%, 95%)",
         marginBottom: 10,
     },
+    button: {
+        backgroundColor: "hsl(64, 60%, 35%)",
+        marginVertical: 10,
+        padding: 10,
+    },
+    buttonText: {
+        color: "hsl(64, 60%, 95%)",
+        textAlign: "center",
+    },
+    buttonDisabled: {
+        backgroundColor: "hsl(64, 60%, 65%)",
+        marginVertical: 10,
+        padding: 10,
+    }
 })
