@@ -25,7 +25,7 @@ export default function AddScreen() {
         console.log(data)
         const time: number = new Date().getTime()
         const obj: Item = { name: name, description: description, created: time }
-        data.add({ userId: userId, name:name, description:description,created:time })
+        data.add({ name:name, description:description,created:time })
     }
     const logOut = () => {
         user.logout()
