@@ -21,8 +21,8 @@ export function DataProvider(props:any) {
       USER_DATABASE_ID,
       USER_COLLECTION_ID,
       ID.unique(),
-      item,
-      [Permission.write(Role.user(item.userId))]
+      item
+      //[Permission.write(Role.user(item.userId))]
     );
     setThings((items:any) => [response, ...items].slice(0, 10));
   }
