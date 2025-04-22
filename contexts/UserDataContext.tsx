@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { databases } from "@/lib/appwrite";
 
 
+
 export const USER_DATABASE_ID = "67ca3cc50035cb355681"; // Replace with your database ID
 export const USER_COLLECTION_ID = "67ca3cdf00293f88ebd3"; // Replace with your collection ID
 
@@ -14,16 +15,21 @@ export function useData() {
 
 export function DataProvider(props:any) {
   //const [ideas, setIdeas] = useState<any>([]);
-  const [things, setThings ] = useState<any>([]);
+  const [things, setThings ] = useState<any>([])
+
 
   async function add(item:any) {
-    console.log( item )
     const response = await databases.createDocument(
       USER_DATABASE_ID,
       USER_COLLECTION_ID,
       ID.unique(),
       item,
-      [Permission.write(Role.user(item.userId))]
+      [
+        Permission.write(Role.user(item.userId)),
+        Permission.read(Role.user(item.userId)),
+        Permission.update(Role.user(item.userId)),
+        Permission.delete(Role.user(item.userId))
+      ]
     );
     setThings((items:any) => [response, ...items].slice(0, 10));
   }
