@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { FormLabel } from '@/components/FormLabel'
 import { useUser } from '@/contexts/UserContext'
 import { router } from 'expo-router'
+import { navigate } from 'expo-router/build/global-state/routing'
 
 export default function Signup() {
     const [email, setEmail] = useState("")
@@ -15,9 +16,10 @@ export default function Signup() {
     const user = useUser()
 
     useEffect( () => {
-        if( user.current) {
-            router.navigate('/(tabs)')
-        }
+       if( user.current ) {
+        console.log(user)
+         router.navigate('/(tabs)')
+       }
     }, [user])
 
     useEffect(() => {
@@ -40,7 +42,7 @@ export default function Signup() {
     }, [email])
 
     const signUp = async () => {
-       const signup = await user.register( email, password )
+       await user.register( email, password )
        router.navigate('/(tabs)')
     }
     return (
@@ -71,9 +73,7 @@ export default function Signup() {
                 <Link href="/">
                     <Text>Login to your account</Text>
                 </Link>
-                <Link href="/(tabs)">
-                    <Text>Home</Text>
-                </Link>
+                
             </View>
         </SafeAreaView>
     )

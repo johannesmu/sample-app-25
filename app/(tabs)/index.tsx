@@ -8,6 +8,7 @@ import { ListItem } from '@/components/ListItem';
 
 export default function Home() {
   const [items, setItems] = useState([])
+  
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const user = useUser()
   const data = useData()
@@ -21,9 +22,7 @@ export default function Home() {
 
   useEffect(
     () => {
-      if(!user.current) {
-        router.navigate('/signup')
-      }
+      console.log(user)
     }, [user]
   )
 
@@ -58,11 +57,6 @@ export default function Home() {
         ItemSeparatorComponent={Separator}
         ListEmptyComponent={<Empty />}
       />
-      <Modal visible={modalVisible}>
-        <View>
-
-        </View>
-      </Modal>
     </View>
   )
 }
