@@ -48,7 +48,7 @@ export default function Login() {
     }, [email])
 
     const signIn = async () => {
-        const signin = await user.login(email, password)
+        await user.login(email, password)
         router.navigate('/(tabs)')
     }
     return (
