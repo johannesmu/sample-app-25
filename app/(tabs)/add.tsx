@@ -8,28 +8,22 @@ import { router } from 'expo-router';
 export default function AddScreen() {
     const [name, setName] = useState<string>('')
     const [description, setDescription] = useState<string>('')
-    const [userId, setUserId] = useState<any>()
+    const [userUid, setUserUid] = useState<any>()
 
     const user = useUser()
     const data = useData()
 
-    console.log( data )
-
     useEffect( () => {
         if( user.current ) {
-            setUserId( user.current.$id)
+            setUserUid( user.current.$id)
         }
     }, [user])
 
     const addItem = () => {
-        console.log(data)
+        //console.log(data)
         const time: number = new Date().getTime()
-        const obj: Item = { name: name, description: description, created: time }
-        data.add({ name:name, description:description,created:time })
-    }
-    const logOut = () => {
-        user.logout()
-        router.navigate('/signup')
+        const obj: Item = { name: name, description: description, created: time, userId: userUid }
+        data.add(obj)
     }
 
     return (
@@ -54,9 +48,6 @@ export default function AddScreen() {
                     disabled={ (name.length > 3) ? false: true }
                 >
                     <Text style={styles.buttonText}>Add</Text>
-                </Pressable>
-                <Pressable onPress={ () => logOut() }>
-                    <Text>Logout</Text>
                 </Pressable>
             </View>
         </View>
