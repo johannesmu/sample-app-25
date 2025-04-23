@@ -20,10 +20,12 @@ export default function Home() {
   useEffect(
     () => {
       setItems( data.current )
-      console.log(data)
     },
     [ data.current ]
   )
+  useEffect( () => {
+    console.log(user)
+  },[user])
 
   return (
     <View style={ styles.container }>
