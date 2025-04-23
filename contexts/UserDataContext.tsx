@@ -21,7 +21,7 @@ export function DataProvider(props:any) {
       USER_DATABASE_ID,
       USER_COLLECTION_ID,
       ID.unique(),
-      item
+      item,
       [
         Permission.write(Role.user(item.userId)),
         Permission.read(Role.user(item.userId)),
