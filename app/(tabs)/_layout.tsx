@@ -55,6 +55,8 @@ export default function TabLayout() {
               tabBarIcon: ({ color }) => <Ionicons size={28} name="person-circle" color={color} />,
             }}
           />
+          <Tabs.Screen  name="detail/[id]" options={{href:null}}/>
+           
         </Tabs>
     </DataProvider>
   </UserProvider>
