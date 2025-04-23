@@ -16,7 +16,6 @@ export function DataProvider(props:any) {
   const [things, setThings ] = useState<any>([]);
 
   async function add(item:any) {
-    console.log(item)
     const response = await databases.createDocument(
       USER_DATABASE_ID,
       USER_COLLECTION_ID,
