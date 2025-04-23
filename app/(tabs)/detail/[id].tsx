@@ -8,9 +8,9 @@ export default function DetailScreen(props: any) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Link href="/(tabs)">
+                <Link href="/(tabs)" style={{alignItems:"center",flexDirection:"row"}}>
                     <Ionicons size={24} name="chevron-back" />
-                    <Text style={styles.headerText}>Return to list</Text>
+                    Return to list
                 </Link>
             </View>
             <Text>Detail for {id}</Text>
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     headerText: {
-        fontSize: 22,
-        textAlign: "center",
+        fontSize: 15,
     },
 })
