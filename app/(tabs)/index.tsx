@@ -36,7 +36,7 @@ export default function Home() {
 
       <FlatList
         data={items}
-        renderItem={({ item }: any) => <ListItem name={item.name} />}
+        renderItem={({ item }: any) => <ListItem name={item.name} id={ item.$id } />}
         keyExtractor={(item: any) => item.$id}
         ItemSeparatorComponent={Separator}
       />
