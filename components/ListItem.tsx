@@ -5,7 +5,7 @@ import { Link } from 'expo-router'
 export function ListItem ( props:any ) {
     return(
         <Link href={{
-            pathname: "/(tabs)/detail/[id]",
+            pathname: '/detail/[id]',
             params: { id: props.id }
         }}>
             <View style={ styles.item }>
