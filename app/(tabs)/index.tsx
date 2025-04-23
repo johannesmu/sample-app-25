@@ -1,4 +1,4 @@
-import {  StyleSheet, View, Text, FlatList, Modal } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Modal } from 'react-native';
 import { router } from 'expo-router';
 import { useState, useEffect } from 'react'
 import { useUser } from '@/contexts/UserContext';
@@ -7,46 +7,54 @@ import { Item } from '@/interfaces/Item';
 import { ListItem } from '@/components/ListItem';
 
 export default function Home() {
-  const[ items, setItems ] = useState([])
-  const[ modalVisible, setModalVisible ] = useState<boolean>( false )
+  const [items, setItems] = useState([])
   const user = useUser()
-  // useEffect( () => {
-  //   if(!user.current) {
-  //     router.navigate('/signup')
-  //   }
-  // },[user])
+
 
   const data = useData()
   useEffect(
     () => {
-      setItems( data.current )
+      setItems(data.current)
     },
-    [ data.current ]
+    [data.current]
   )
-  useEffect( () => {
+  useEffect(() => {
     console.log(user)
-  },[user])
+  }, [user])
+  // separator component for the list
+  const Separator = () => {
+    return(
+      <View style={{height:1,backgroundColor: "hsl(64, 60%, 35%)"}}></View>
+    )
+  }
 
   return (
-    <View style={ styles.container }>
-      <Text>Home</Text>
-      <FlatList 
-      data={items}
-      renderItem={ ({item}:any) => <ListItem name={item.name} /> }
-      keyExtractor={(item:any) => item.$id }
-      />
-      <Modal visible={ modalVisible }>
-        <View>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>List</Text>
+      </View>
 
-        </View>
-      </Modal>
+      <FlatList
+        data={items}
+        renderItem={({ item }: any) => <ListItem name={item.name} />}
+        keyExtractor={(item: any) => item.$id}
+        ItemSeparatorComponent={Separator}
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: "hsl(64, 60%, 77%)",
-  }
+    flex: 1,
+    backgroundColor: "hsl(64, 60%, 77%)",
+  },
+  header: {
+    padding: 10,
+    backgroundColor: "hsl(64, 60%, 55%)",
+  },
+  headerText: {
+    fontSize: 22,
+    textAlign: "center",
+  },
 })
