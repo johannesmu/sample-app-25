@@ -1,20 +1,20 @@
 import { Image, StyleSheet, Platform, View, Text, Pressable } from 'react-native';
 import { useState, useEffect } from 'react'
-// import { useUser } from '@/contexts/UserContext';
+import { useUser } from '@/contexts/UserContext';
 import { router } from 'expo-router';
 
 export default function ProfileScreen() {
   const[ email, setEmail ] = useState<any>('')
-  // const user = useUser()
+  const user = useUser()
   
-  // useEffect( () => {
-  //   if( user.current ) {
-  //     setEmail( user.current.email )
-  //   }
-  // }, [user])
+  useEffect( () => {
+    if( user.current ) {
+      setEmail( user.current.email )
+    }
+  }, [user])
 
   const signOut = async () => {
-    // await user.logout()
+    await user.logout()
     router.navigate("/signup")
   }
   return (
