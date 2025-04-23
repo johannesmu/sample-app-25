@@ -13,16 +13,21 @@ export function useData() {
 }
 
 export function DataProvider(props:any) {
-  //const [ideas, setIdeas] = useState<any>([]);
   const [things, setThings ] = useState<any>([]);
 
   async function add(item:any) {
+    console.log(item)
     const response = await databases.createDocument(
       USER_DATABASE_ID,
       USER_COLLECTION_ID,
       ID.unique(),
       item
-      //[Permission.write(Role.user(item.userId))]
+      [
+        Permission.write(Role.user(item.userId)),
+        Permission.read(Role.user(item.userId)),
+        Permission.update(Role.user(item.userId)),
+        Permission.delete(Role.user(item.userId))
+      ]
     );
     setThings((items:any) => [response, ...items].slice(0, 10));
   }
